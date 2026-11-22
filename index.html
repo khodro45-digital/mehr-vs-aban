@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khodro45 | Mehr vs Aban — Performance Economics</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1F3A;
+    --navy-2:#122A4A;
+    --navy-line:#2A4568;
+    --ink:#E8EEF7;
+    --muted:#9AABC2;
+    --orange:#FF793F;
+    --orange-soft:#FF9A6B;
+    --orange-dim:rgba(255,121,63,.14);
+    --good:#3DDC97;
+    --bad:#FF6B6B;
+    --card:#102744;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--navy);color:var(--ink);font-family:Vazirmatn,Inter,Segoe UI,sans-serif;line-height:1.55}
+  .deck{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
+  .slide{
+    background:linear-gradient(160deg,var(--navy-2),var(--navy) 55%,#0A1830);
+    border:1px solid var(--navy-line);border-radius:18px;
+    padding:36px 40px 48px;margin:0 0 22px;min-height:560px;position:relative;overflow:hidden;
+    box-shadow:0 18px 50px rgba(0,0,0,.28);
+  }
+  .slide::before{content:"";position:absolute;inset:0 auto 0 0;width:6px;background:linear-gradient(180deg,var(--orange),#E85A20)}
+  .eyebrow{color:var(--orange);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px}
+  h1{font-size:34px;margin:0 0 10px;letter-spacing:-.02em;line-height:1.2}
+  h2{font-size:26px;margin:0 0 8px;letter-spacing:-.02em}
+  h3{font-size:14px;margin:20px 0 10px;color:var(--orange-soft);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 18px;max-width:900px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+  .kpi{background:var(--card);border:1px solid var(--navy-line);border-radius:12px;padding:14px}
+  .kpi .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .kpi .value{font-size:22px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  .kpi .hint{font-size:11px;color:var(--muted);margin-top:4px}
+  .kpi.accent{border-color:rgba(255,121,63,.45);background:linear-gradient(180deg,var(--orange-dim),var(--card))}
+  .note{background:var(--orange-dim);border:1px solid rgba(255,121,63,.35);border-radius:10px;padding:12px 14px;font-size:13px;color:#FFD7C4;margin:12px 0 16px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--navy-line);text-align:left}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  td.name{font-weight:600}
+  .pill{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--navy-line)}
+  .worse{color:var(--bad)}.better{color:var(--good)}.flat{color:var(--muted)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .panel{background:rgba(0,0,0,.18);border:1px solid var(--navy-line);border-radius:12px;padding:14px 16px}
+  .panel h4{margin:0 0 10px;font-size:14px}
+  .bar-row{display:grid;grid-template-columns:118px 1fr 92px;gap:8px;align-items:center;margin:7px 0;font-size:12px}
+  .bar{height:10px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--orange),#FFB088)}
+  .bar > i.navy{background:linear-gradient(90deg,#3D6BA8,#7EA8E0)}
+  .bar > i.ghost{background:linear-gradient(90deg,#3D6BA8,#7EA8E0);opacity:.45}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin:0 0 12px;flex-wrap:wrap}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+  .legend .o::before{background:var(--orange)}.legend .n::before{background:#5B8FD4}.legend .g::before{background:#5B8FD4;opacity:.45}
+  .foot{margin-top:22px;display:flex;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted)}
+  .brand{color:var(--orange);font-weight:700}
+  .badge{display:inline-block;background:var(--orange);color:#1a0a00;font-weight:700;font-size:12px;padding:4px 10px;border-radius:6px;margin-bottom:14px}
+  .winner{margin-top:16px;padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(255,121,63,.2),transparent);border:1px solid rgba(255,121,63,.4)}
+  .winner b{color:var(--orange)}
+  .winner b.better{color:var(--good)}
+  .call{font-size:18px;line-height:1.45;margin:0}
+  .call b{color:var(--orange)}
+  @media (max-width:800px){.kpis,.grid-2,.grid-3{grid-template-columns:1fr}.slide{padding:24px 18px;min-height:auto}}
+  @media print{.slide{break-after:page;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<section class="slide">
+  <div class="badge">MEHR VS ABAN</div>
+  <div class="eyebrow">Khodro45 Marketing</div>
+  <h1>Mehr vs Aban</h1>
+  <div class="kpis">
+    <div class="kpi accent"><div class="label">Cost</div><div class="value worse">+46.5%</div><div class="hint">33.48B → 49.05B</div></div>
+    <div class="kpi"><div class="label">CPE</div><div class="value worse">+30.4%</div><div class="hint">1.54M → 2.01M</div></div>
+    <div class="kpi"><div class="label">CAC</div><div class="value worse">+51.9%</div><div class="hint">4.61M → 7.01M</div></div>
+    <div class="kpi"><div class="label">Revenue</div><div class="value better">+1.9%</div><div class="hint">451B → 459.58B</div></div>
+  </div>
+  <div class="foot"><span class="brand">خودرو۴۵</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Comparison</div>
+  <h2>Mehr vs Aban</h2>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th class="num">Leads</th>
+        <th class="num">Cost</th>
+        <th class="num">Cost / lead</th>
+        <th class="num">Revenue</th>
+        <th class="num">Entrance</th>
+        <th class="num">Buy</th>
+        <th class="num">Ent/OTP</th>
+        <th class="num">Buy/OTP</th>
+        <th class="num">CPE</th>
+        <th class="num">CAC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Mehr</td>
+        <td class="num">119,805</td>
+        <td class="num">33.48B</td>
+        <td class="num">279,426</td>
+        <td class="num">451B</td>
+        <td class="num">21,757</td>
+        <td class="num">7,258</td>
+        <td class="num">18.16%</td>
+        <td class="num">6.06%</td>
+        <td class="num">1,538,655</td>
+        <td class="num">4,612,361</td>
+      </tr>
+      <tr>
+        <td class="name">Aban</td>
+        <td class="num">136,225</td>
+        <td class="num">49.05B</td>
+        <td class="num">360,083</td>
+        <td class="num">459.58B</td>
+        <td class="num">24,445</td>
+        <td class="num">7,000</td>
+        <td class="num">17.94%</td>
+        <td class="num">5.14%</td>
+        <td class="num">2,006,663</td>
+        <td class="num">7,007,469</td>
+      </tr>
+      <tr>
+        <td class="name">Aban / Mehr</td>
+        <td class="num better">1.14×</td>
+        <td class="num worse">1.47×</td>
+        <td class="num worse">1.29×</td>
+        <td class="num better">1.02×</td>
+        <td class="num better">1.12×</td>
+        <td class="num worse">0.96×</td>
+        <td class="num worse">98.8%</td>
+        <td class="num worse">84.8%</td>
+        <td class="num worse">1.30×</td>
+        <td class="num worse">1.52×</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Organic leads</h3>
+  <table>
+    <thead>
+      <tr><th></th><th class="num">Organic leads</th><th class="num">Share of leads</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">Mehr</td><td class="num">57,507</td><td class="num">48.0%</td></tr>
+      <tr><td class="name">Aban</td><td class="num">58,750</td><td class="num">43.1%</td></tr>
+      <tr><td class="name">Aban / Mehr</td><td class="num better">+1,243</td><td class="num worse">−4.9 pp</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span class="brand">خودرو۴۵</span></div>
+</section>
+
+<section class="slide">
+  <div class="badge">PAID SHARE</div>
+  <div class="eyebrow">Paid vs organic</div>
+  <h2>Paid share, Mehr vs Aban</h2>
+  <div class="kpis">
+    <div class="kpi accent"><div class="label">Aban paid CPE</div><div class="value">5.71M</div><div class="hint">47.11B ÷ 8,245</div></div>
+    <div class="kpi"><div class="label">Mehr paid CPE</div><div class="value">4.91M</div><div class="hint">32.80B ÷ 6,681</div></div>
+    <div class="kpi"><div class="label">Paid lead share</div><div class="value">52.0% → 56.9%</div><div class="hint">organic 48.0% → 43.1%</div></div>
+    <div class="kpi"><div class="label">Organic entrance share</div><div class="value">69.3% → 66.3%</div><div class="hint">organic buy 74.4% → 70.9%</div></div>
+  </div>
+  <h3>Share of the month</h3>
+  <table>
+    <thead>
+      <tr><th></th><th class="num">Mehr paid</th><th class="num">Mehr organic</th><th class="num">Aban paid</th><th class="num">Aban organic</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">Lead share</td><td class="num">52.0%</td><td class="num">48.0%</td><td class="num">56.9%</td><td class="num">43.1%</td></tr>
+      <tr><td class="name">Lead count</td><td class="num">62,298</td><td class="num">57,507</td><td class="num">77,475</td><td class="num">58,750</td></tr>
+      <tr><td class="name">Entrance share</td><td class="num">30.7%</td><td class="num">69.3%</td><td class="num">33.7%</td><td class="num">66.3%</td></tr>
+      <tr><td class="name">Entrance count</td><td class="num">6,681</td><td class="num">15,076</td><td class="num">8,245</td><td class="num">16,200</td></tr>
+      <tr><td class="name">Buy share</td><td class="num">25.6%</td><td class="num">74.4%</td><td class="num">29.1%</td><td class="num">70.9%</td></tr>
+      <tr><td class="name">Buy count</td><td class="num">1,860</td><td class="num">5,398</td><td class="num">2,040</td><td class="num">4,960</td></tr>
+    </tbody>
+  </table>
+  <h3>Paid unit cost</h3>
+  <table>
+    <thead>
+      <tr><th></th><th class="num">Mehr</th><th class="num">Aban</th><th class="num">Δ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">Cost / paid lead</td><td class="num">526,533</td><td class="num">608,087</td><td class="num worse">+15.5%</td></tr>
+      <tr><td class="name">Paid CPE</td><td class="num">4,909,736</td><td class="num">5,714,318</td><td class="num worse">+16.4%</td></tr>
+      <tr><td class="name">Max CPE</td><td class="num">10,147,061</td><td class="num">8,173,187</td><td class="num"></td></tr>
+      <tr><td class="name">Paid CPE / max</td><td class="num">48%</td><td class="num">70%</td><td class="num better">Healthy</td></tr>
+      <tr><td class="name">Paid CAC</td><td class="num">17,635,455</td><td class="num">23,099,531</td><td class="num worse">+31.0%</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span class="brand">خودرو۴۵</span></div>
+</section>
+
+<section class="slide">
+  <div class="badge">READ THIS</div>
+  <div class="eyebrow">Paid cost · Mehr vs Aban</div>
+  <h2>More leads bought the spend. The funnel lost the sales.</h2>
+  <div class="kpis">
+    <div class="kpi accent"><div class="label">Extra paid cost</div><div class="value">+14.31B</div><div class="hint">32.80B → 47.11B</div></div>
+    <div class="kpi"><div class="label">From more paid leads</div><div class="value">7.99B</div><div class="hint">56% · 62,298 → 77,475</div></div>
+    <div class="kpi"><div class="label">From a higher lead price</div><div class="value">6.32B</div><div class="hint">44% · 527k → 608k</div></div>
+    <div class="kpi"><div class="label">Paid CAC</div><div class="value worse">+5.46M</div><div class="hint">17.64M → 23.10M</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="panel">
+      <h4>Base price</h4>
+      <p class="call">Higher demand for ad space raised the base price of a paid lead, from <b>527k to 608k</b>. That price is <b>6.32B</b> of the extra cost. The other <b>7.99B</b> is the rise in paid leads, from 62,298 to 77,475.</p>
+    </div>
+    <div class="panel">
+      <h4>Funnel</h4>
+      <p class="call">Paid CPE rose <b>0.80M</b> (4.91M → 5.71M). <b>0.76M</b> is the lead price. <b>0.04M</b> is the funnel.</p>
+      <p class="call" style="margin-top:12px">Paid CAC rose <b>5.46M</b> (17.64M → 23.10M). <b>2.73M</b> is the lead price. <b>2.73M</b> is the funnel: fewer buys per paid lead.</p>
+    </div>
+  </div>
+  <div class="winner">Paid CPE finished at <b>5.71M</b>. The max it could have been is <b>8.17M</b>. <b class="better">Healthy.</b></div>
+  <div class="winner">Organic still brings most entrances, <b>69.3% → 66.3%</b>, and most buys, <b>74.4% → 70.9%</b>.</div>
+  <div class="foot"><span class="brand">خودرو۴۵</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Funnel</div>
+  <h2>Leads · Entrance · Buy</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="label">Leads</div><div class="value better">+16,420</div><div class="hint">119,805 → 136,225 · +13.7%</div></div>
+    <div class="kpi"><div class="label">Entrance</div><div class="value better">+2,688</div><div class="hint">21,757 → 24,445 · +12.4%</div></div>
+    <div class="kpi accent"><div class="label">Buy</div><div class="value worse">−258</div><div class="hint">7,258 → 7,000 · −3.6%</div></div>
+    <div class="kpi"><div class="label">Buy / Entrance</div><div class="value worse">33.4% → 28.6%</div><div class="hint">−4.72 pp</div></div>
+  </div>
+  <div class="legend"><span class="o">Mehr</span><span class="n">Aban</span></div>
+  <div class="grid-2">
+    <div class="panel">
+      <h4>Volume</h4>
+      <div class="bar-row"><span>Leads Mehr</span><div class="bar"><i style="width:87.9%"></i></div><span>119,805</span></div>
+      <div class="bar-row"><span>Leads Aban</span><div class="bar"><i class="navy" style="width:100%"></i></div><span>136,225</span></div>
+      <div class="bar-row"><span>Ent Mehr</span><div class="bar"><i style="width:89.0%"></i></div><span>21,757</span></div>
+      <div class="bar-row"><span>Ent Aban</span><div class="bar"><i class="navy" style="width:100%"></i></div><span>24,445</span></div>
+      <div class="bar-row"><span>Buy Mehr</span><div class="bar"><i style="width:100%"></i></div><span>7,258</span></div>
+      <div class="bar-row"><span>Buy Aban</span><div class="bar"><i class="navy" style="width:96.4%"></i></div><span>7,000</span></div>
+    </div>
+    <div class="panel">
+      <h4>Step rates</h4>
+      <table>
+        <tr><th>Step</th><th class="num">Mehr</th><th class="num">Aban</th><th class="num">Δ</th></tr>
+        <tr><td>Ent / Lead</td><td class="num">18.16%</td><td class="num">17.94%</td><td class="num worse">−0.22 pp</td></tr>
+        <tr><td>Buy / Lead</td><td class="num">6.06%</td><td class="num">5.14%</td><td class="num worse">−0.92 pp</td></tr>
+        <tr><td>Buy / Ent</td><td class="num">33.36%</td><td class="num">28.64%</td><td class="num worse">−4.72 pp</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="winner">Aban closed <b>7,000</b> sales. <b>6,485</b> came from leads created in Aban. The other <b>515</b>, about 7%, closed in Aban from leads that had come in earlier.</div>
+  <div class="foot"><span class="brand">خودرو۴۵</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Unit economics</div>
+  <h2>CPO · CPE · CAC</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="label">Cost / lead</div><div class="value worse">279k → 360k</div><div class="hint">+28.9%</div></div>
+    <div class="kpi accent"><div class="label">CPE</div><div class="value worse">1.54M → 2.01M</div><div class="hint">+30.4%</div></div>
+    <div class="kpi"><div class="label">CAC</div><div class="value worse">4.61M → 7.01M</div><div class="hint">+51.9%</div></div>
+    <div class="kpi"><div class="label">Cost / Revenue</div><div class="value worse">7.4% → 10.7%</div><div class="hint">+3.3 pp</div></div>
+  </div>
+  <div class="legend"><span class="o">Mehr</span><span class="n">Aban</span></div>
+  <div class="grid-2">
+    <div class="panel">
+      <h4>Unit cost</h4>
+      <div class="bar-row"><span>CPO Mehr</span><div class="bar"><i style="width:77.6%"></i></div><span>279,426</span></div>
+      <div class="bar-row"><span>CPO Aban</span><div class="bar"><i class="navy" style="width:100%"></i></div><span>360,083</span></div>
+      <div class="bar-row"><span>CPE Mehr</span><div class="bar"><i style="width:76.7%"></i></div><span>1.54M</span></div>
+      <div class="bar-row"><span>CPE Aban</span><div class="bar"><i class="navy" style="width:100%"></i></div><span>2.01M</span></div>
+      <div class="bar-row"><span>CAC Mehr</span><div class="bar"><i style="width:65.8%"></i></div><span>4.61M</span></div>
+      <div class="bar-row"><span>CAC Aban</span><div class="bar"><i class="navy" style="width:100%"></i></div><span>7.01M</span></div>
+    </div>
+    <div class="panel">
+      <h4>What each buy is worth</h4>
+      <table>
+        <tr><th></th><th class="num">Mehr</th><th class="num">Aban</th><th class="num">Δ</th></tr>
+        <tr><td>Revenue / buy</td><td class="num">62.14M</td><td class="num">65.65M</td><td class="num better">+5.7%</td></tr>
+        <tr><td>Revenue / entrance</td><td class="num">20.73M</td><td class="num">18.80M</td><td class="num worse">−9.3%</td></tr>
+        <tr><td>Media / revenue</td><td class="num">7.4%</td><td class="num">10.7%</td><td class="num worse">+3.3 pp</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">خودرو۴۵</span></div>
+</section>
+
+</div>
+</body>
+</html>
